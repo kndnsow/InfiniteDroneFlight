@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REALISTIC FPV DRONE SIMULATOR</title>
+    <link rel="icon" type="image/x-icon" href="assets/drone.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="three.min.js"></script>
+</head>
+<body>
+    
+    <div id="loadingScreen" class="screen">
+        <div class="loading-container">
+            <div class="loading-logo">
+                <h1><img class="btn-icon" src="assets/drone.png" alt="x-icon"> DRONE SIMULATOR</h1>
+                <p>Experience authentic drone flight physics and realistic controls</p>
+            </div>
+            <div class="loading-bar">
+                <div id="loadingProgress" class="loading-progress"></div>
+            </div>
+            <div id="loadingText" class="loading-text">Initializing enhanced physics engine...</div>
+        </div>
+    </div>
+
+    
+    <div id="mainMenu" class="screen hidden">
+        <div class="menu-container">
+            <div class="menu-header">
+                <h1><img class="btn-icon" src="assets/drone.png" alt="x-icon"> DRONE SIMULATOR</h1>
+                <p>Master the art of realistic drone flight</p>
+            </div>
+            <div class="menu-buttons">
+                <button id="btnFreefly" class="menu-btn primary">
+                    <div class="btn-icon">🌍</div>
+                    <div class="btn-content">
+                        <strong>Free Flight</strong>
+                        <small>Explore the endless grass field with authentic physics</small>
+                    </div>
+                </button>
+                <button id="btnGate" class="menu-btn">
+                    <div class="btn-icon">🎯</div>
+                    <div class="btn-content">
+                        <strong>Gate Racing</strong>
+                        <small>Navigate through challenging racing gates</small>
+                    </div>
+                </button>
+                <button id="btnAcrobatic" class="menu-btn">
+                    <div class="btn-icon">🌀</div>
+                    <div class="btn-content">
+                        <strong>Acrobatic Training</strong>
+                        <small>Master advanced aerobatic maneuvers</small>
+                    </div>
+                </button>
+                <button id="btnSettings" class="menu-btn">
+                    <div class="btn-icon">⚙️</div>
+                    <div class="btn-content">
+                        <strong>Settings</strong>
+                        <small>Configure your authentic drone experience</small>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="settingsMenu" class="screen hidden">
+        
+        <div class="menu-container">
+            <button id="btnBackToMain" class="back-btn">← Back to Menu</button>
+            <div class="menu-header">
+                <h2>Settings</h2>
+                <p>Configure your authentic drone experience</p>
+            </div>
+            <div class="settings-content">
+                
+                <div class="settings-section">
+                    <h3>Drone Configuration</h3>
+                    <div class="slider-group">
+                        <label>Drone Weight:</label>
+                        <input type="range" id="drone-weight-slider" min="0.3" max="2.0" step="0.1" value="0.8">
+                        <span id="drone-weight-value">0.8kg</span>
+                    </div>
+                    <div class="slider-group">
+                        <label>Thrust-to-Weight Ratio:</label>
+                        <input type="range" id="twr-slider" min="2.0" max="8.0" step="0.5" value="5.0">
+                        <span id="twr-value">5.0:1</span>
+                    </div>
+                    <div class="slider-group">
+                        <label>Motor Response Time:</label>
+                        <input type="range" id="motor-response-slider" min="10" max="100" step="5" value="30">
+                        <span id="motor-response-value">30ms</span>
+                    </div>
+                </div>
+
+                
+                <div class="settings-section">
+                    <h3>Physics Settings</h3>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="realistic-gravity-check" checked>
+                            Realistic Gravity
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="wind-effects-check" checked>
+                            Wind Effects
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="prop-wash-check" checked>
+                            Propeller Wash
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="gyroscopic-check" checked>
+                            Gyroscopic Effects
+                        </label>
+                    </div>
+                    <div class="slider-group">
+                        <label>Air Density:</label>
+                        <input type="range" id="air-density-slider" min="0.8" max="1.8" step="0.1" value="1.225">
+                        <span id="air-density-value">1.225 kg/m³</span>
+                    </div>
+                </div>
+
+                
+                <div class="settings-section">
+                    <h3>Control Settings</h3>
+                    <div class="control-group">
+                        <label>Skill Level:
+                            <select id="skill-level">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate" selected>Intermediate</option>
+                                <option value="racing">Racing</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="slider-group">
+                        <label>Max Rate:</label>
+                        <input type="range" id="max-rate-slider" min="200" max="1200" step="50" value="700">
+                        <span id="max-rate-value">700°/s</span>
+                    </div>
+                    <div class="slider-group">
+                        <label>Center Sensitivity:</label>
+                        <input type="range" id="center-sens-slider" min="50" max="300" step="25" value="150">
+                        <span id="center-sens-value">150°/s</span>
+                    </div>
+                    <div class="slider-group">
+                        <label>Expo:</label>
+                        <input type="range" id="expo-slider" min="0" max="1" step="0.1" value="0.3">
+                        <span id="expo-value">0.3</span>
+                    </div>
+                </div>
+
+                
+                <div class="settings-section">
+                    <h3>Camera Settings</h3>
+                    <div class="control-group">
+                        <label>Camera Mode:
+                            <select id="cameraMode">
+                                <option value="fpv" selected>FPV</option>
+                                <option value="cockpit">Cockpit</option>
+                                <option value="chase">Chase</option>
+                                <option value="orbit">Orbit</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="slider-group">
+                        <label>Field of View:</label>
+                        <input type="range" id="fov-slider" min="60" max="120" step="5" value="90">
+                        <span id="fov-value">90°</span>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="motion-blur-check" checked>
+                            Motion Blur
+                        </label>
+                    </div>
+                </div>
+
+                
+                <div class="settings-section">
+                    <h3>Controller Setup</h3>
+                    <button id="btnCal" class="settings-btn">Calibrate Controllers</button>
+                    <div class="hid-info">Controllers: Connect gamepad or HID device for best experience</div>
+                    <button id="connect-hid" class="settings-btn">Connect HID Device</button>
+                    <div class="hid-info">Connect specialized flight controllers via WebHID</div>
+                </div>
+
+                
+                <div class="settings-section">
+                    <h3>Advanced Settings</h3>
+                    <div class="slider-group">
+                        <label>Max Flight Distance:</label>
+                        <input type="range" id="max-distance-slider" min="500" max="3000" step="100" value="1500">
+                        <span id="max-distance-value">1500 m</span>
+                    </div>
+                    <div class="slider-group">
+                        <label>Max Altitude:</label>
+                        <input type="range" id="max-altitude-slider" min="100" max="500" step="25" value="300">
+                        <span id="max-altitude-value">300 m</span>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="unlimited-battery-check">
+                            Unlimited Battery
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="show-debug-check">
+                            Show Debug Panel
+                        </label>
+                    </div>
+                    <button id="btnResetWorld" class="settings-btn">Reset World</button>
+                    <div class="hid-info">Regenerate the endless grass field world</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="gameScreen" class="screen hidden">
+        <canvas id="gameCanvas"></canvas>
+        
+        
+        <div class="hud">
+            
+            <div class="hud-top">
+                <div class="objective-top" id="objective">
+                    Explore the endless grass field with authentic flight physics!
+                </div>
+                <div class="hud-item-group">
+                    <div class="hud-item">
+                        <span class="hud-label">Mode</span>
+                        <span id="flightMode">Free Flight</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">Score</span>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">Controllers</span>
+                        <span id="controllers">0</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="hud-center">
+                <div class="crosshair">+</div>
+            </div>
+
+            
+            <div class="hud-bottom">
+                <div class="drone-status">
+                    <div class="status-item">
+                        <span class="status-label">ALT</span>
+                        <span id="altitude">2.0 m</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">SPD</span>
+                        <span id="speed">0.0 m/s</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">THR</span>
+                        <span id="throttle">0%</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">BAT</span>
+                        <span id="battery">100%</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">G</span>
+                        <span id="gforce">1.0g</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">RATE</span>
+                        <span id="currentRates">700°/s</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">ARM</span>
+                        <span id="armStatus">DISARMED</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <button id="gameMenuBtn" class="game-menu-btn">ESC</button>
+
+        
+        <div id="debugPanel" class="debug-panel-right hidden">
+            <h4>Debug Info</h4>
+            <div id="debugInfo">
+                <div>FPS: <span id="fps">60</span></div>
+                <div>Draw Calls: <span id="drawCalls">0</span></div>
+                <div>Triangles: <span id="triangles">0</span></div>
+                <div>Camera: <span id="debug-cam-mode">fpv</span></div>
+                <div>Velocity: <span id="debug-drone-vel">0,0,0</span></div>
+                <div>Angular Vel: <span id="debug-angular-vel">0,0,0</span></div>
+                <div>Thrust: <span id="debug-thrust">0N</span></div>
+                <div>Mass: <span id="debug-mass">0.8kg</span></div>
+                <div>TWR: <span id="debug-twr">5.0:1</span></div>
+                <div>G-Force: <span id="debug-gforce">1.0g</span></div>
+                <div>Motor RPM: <span id="debug-motor-rpm">0</span></div>
+                <div>Battery V: <span id="debug-battery-voltage">16.8V</span></div>
+                <div>HID: <span id="debug-hid">--</span></div>
+                <div>Facing XYZ: <span id="debug-facing"></span></div>
+            </div>
+            <button id="toggle-debug-btn">Toggle</button>
+        </div>
+    </div>
+
+    
+    <div id="missionComplete" class="screen hidden">
+        <div class="complete-container">
+            <h2>Mission Complete!</h2>
+            <div class="results">
+                <p><strong>Final Score:</strong> <span id="finalScore">0</span></p>
+                <p><strong>Flight Time:</strong> <span id="finalTime">0:00</span></p>
+                <p><strong>Gates Passed:</strong> <span id="gatesPassed">0</span></p>
+                <p><strong>Max G-Force:</strong> <span id="maxGForce">1.0g</span></p>
+                <p><strong>Average Speed:</strong> <span id="avgSpeed">0.0 m/s</span></p>
+                <p><strong>Flight Style:</strong> <span id="flightStyle">Smooth</span></p>
+            </div>
+            <div class="complete-buttons">
+                <button id="btnPlayAgain" class="btn primary">Play Again</button>
+                <button id="btnMainMenu" class="btn">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
