@@ -1,4 +1,4 @@
-# kndnsow/InfiniteDroneFlight
+# [kndnsow/InfiniteDroneFlight](https://kndnsow.github.io/InfiniteDroneFlight/)
 
 A realistic FPV drone simulator featuring true endless world generation, accurate drone-relative controls, and immersive environmental effects.
 
@@ -22,10 +22,9 @@ InfiniteDroneFlight is a web-based First-Person View (FPV) drone simulator built
 - Enhanced environment: sky shader, dynamic fog, day-lighting, and shadow mapping  
 - Debug panel: displays FPS, draw calls, drone velocity, orientation, HID controller input, and more  
 
-## Live Demo
+## [Live Demo](https://kndnsow.github.io/InfiniteDroneFlight/)
 
-View the live demo by opening `index.html` in a modern browser.  
-Ensure Three.js (r128) is available via CDN.
+View the live demo >> [click here](https://kndnsow.github.io/InfiniteDroneFlight/).
 
 ## Installation
 
