@@ -1,4 +1,5 @@
 # [kndnsow/InfiniteDroneFlight](https://kndnsow.github.io/InfiniteDroneFlight/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://kndnsow.github.io/InfiniteDroneFlight/)
 
 A realistic FPV drone simulator featuring true endless world generation, accurate drone-relative controls, and immersive environmental effects.
 
